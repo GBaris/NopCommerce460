@@ -1,117 +1,74 @@
-@model ProductReviewsModel
+﻿@model Nop.Web.Models.Catalog.ProductDetailsModel
 
-@using Nop.Core.Domain.Catalog
-@using Nop.Web.Models.Catalog;
-
-@inject Nop.Services.Html.IHtmlFormatter htmlFormatter
+@using Nop.Web.Framework.Localization
+@using Nop.Plugin.Widgets.AskVendor.Controllers
 
 @{
-    Layout = "_ColumnsOne";
-
-    //title
-    NopHtml.AddTitleParts(Model.ProductName);
-    NopHtml.AddTitleParts(T("PageTitle.ProductReviews").Text);
-    //page class
-    NopHtml.AppendPageCssClassParts("html-product-reviews-page");
-
-    NopHtml.AppendCssFileParts("~/Plugins/Widgets.AskVendor/Content/css/style.css");
-    NopHtml.AppendCssFileParts("~/Plugins/Widgets.AskVendor/Content/css/modaal.css");
-
-
+    NopHtml.AppendCssFileParts("/Plugins/Widgets.AskVendor/Content/css/style.css");
+    NopHtml.AppendCssFileParts("/Plugins/Widgets.AskVendor/Content/css/modaal.css");
+    NopHtml.AppendScriptParts(ResourceLocation.Footer, "~/Plugins/Widgets.AskVendor/Content/js/modaal.js"); 
     NopHtml.AppendScriptParts(ResourceLocation.Footer, "~/Plugins/Widgets.AskVendor/Content/js/askvendor.js");
-    NopHtml.AppendScriptParts(ResourceLocation.Footer, "~/Plugins/Widgets.AskVendor/Content/js/modaal.js");
-
 }
 
 <div class="ask-vendor">
     <button type="button" class="button-2 ask-vendor-button modaal"
             data-modaal-content-source="#askvendor" data-modaal-type="inline" data-modaal-animation="fade">
-            @T("Plugin.Widgets.AskVendor.Button")
+        @T("Plugin.Widgets.AskVendor.Button")
     </button>
 </div>
-
 <div id="askvendor" style="display:none;">
-    <div class="write-review" id="review-form">
-        <div class="title">
-            <strong>@T("Reviews.Write")</strong>
+    <div class="ask-vendor-container">
+        <div class="ask-vendor-header">
+            <h2>@T("AskVendor.Title")</h2>
         </div>
-        <form asp-route="ProductReviews" method="post">
-            <div asp-validation-summary="ModelOnly" class="message-error"></div>
-            <div class="fieldset">
-                <div class="form-fields">
-                    <div class="inputs">
-                        <label asp-for="AddProductReview.Title" asp-postfix=":"></label>
-                        <input asp-for="AddProductReview.Title" class="review-title" asp-disabled="@(!Model.AddProductReview.CanCurrentCustomerLeaveReview)" />
-                        <nop-required />
-                        <span asp-validation-for="AddProductReview.Title"></span>
-                    </div>
-                    <div class="inputs">
-                        <label asp-for="AddProductReview.ReviewText" asp-postfix=":"></label>
-                        <textarea asp-for="AddProductReview.ReviewText" class="review-text" asp-disabled="@(!Model.AddProductReview.CanCurrentCustomerLeaveReview)"></textarea>
-                        <nop-required />
-                        <span asp-validation-for="AddProductReview.ReviewText"></span>
-                    </div>
-                    <div class="review-rating">
-                        <div class="name-description">
-                            <label asp-for="AddProductReview.Rating" asp-postfix=":"></label>
-                        </div>
-                        <div class="rating-wrapper">
-                            <div class="label first">@T("Reviews.Fields.Rating.Bad")</div>
-                            <div class="rating-options">
-                                <input asp-for="AddProductReview.Rating" value="0" type="radio" id="addproductrating_0" style="display: none;" />
-                                <input asp-for="AddProductReview.Rating" value="1" type="radio" id="addproductrating_1" aria-label="@T("Reviews.Fields.Rating.Bad")" />
-                                <input asp-for="AddProductReview.Rating" value="2" type="radio" id="addproductrating_2" aria-label="@T("Reviews.Fields.Rating.NotGood")" />
-                                <input asp-for="AddProductReview.Rating" value="3" type="radio" id="addproductrating_3" aria-label="@T("Reviews.Fields.Rating.NotBadNotExcellent")" />
-                                <input asp-for="AddProductReview.Rating" value="4" type="radio" id="addproductrating_4" aria-label="@T("Reviews.Fields.Rating.Good")" />
-                                <input asp-for="AddProductReview.Rating" value="5" type="radio" id="addproductrating_5" aria-label="@T("Reviews.Fields.Rating.Excellent")" />
-                            </div>
-                            <div class="label last">@T("Reviews.Fields.Rating.Excellent")</div>
-                        </div>
-                    </div>
-                    @if (Model.ReviewTypeList.Count > 0)
-                    {
-                        foreach (var additionalReview in Model.AddAdditionalProductReviewList.OrderBy(ob => ob.DisplayOrder).ToList())
-                        {
-                            var curAdditionalReview = Model.AddAdditionalProductReviewList.IndexOf(additionalReview);
-                            <div class="review-rating">
-                                <div class="name-description">
-                                    <div class="tooltip">
-                                        <label>@Html.Raw(additionalReview.Name):</label>
-                                        <span class="tooltiptext">@Html.Raw(additionalReview.Description)</span>
-                                    </div>
-                                </div>
-                                <div class="rating-wrapper">
-                                    <div class="label first">@T("Reviews.Fields.Rating.Bad")</div>
-                                    <div class="rating-options">
-                                        <input asp-for="@Model.AddAdditionalProductReviewList[curAdditionalReview].ReviewTypeId" value="@(additionalReview.ReviewTypeId)" type="hidden" />
-                                        <input asp-for="@Model.AddAdditionalProductReviewList[curAdditionalReview].Name" value="@(additionalReview.Name)" type="hidden" />
-                                        <input asp-for="@Model.AddAdditionalProductReviewList[curAdditionalReview].Description" value="@(additionalReview.Description)" type="hidden" />
-                                        <input asp-for="@Model.AddAdditionalProductReviewList[curAdditionalReview].DisplayOrder" value="@(additionalReview.DisplayOrder)" type="hidden" />
-                                        <input asp-for="@Model.AddAdditionalProductReviewList[curAdditionalReview].IsRequired" value="@(additionalReview.IsRequired)" type="hidden" />
-
-                                        <input asp-for="@Model.AddAdditionalProductReviewList[curAdditionalReview].Rating" value="0" type="radio" id="addproductratingext_0_@(additionalReview.ReviewTypeId)" style="display: none;" />
-                                        <input asp-for="@Model.AddAdditionalProductReviewList[curAdditionalReview].Rating" value="1" type="radio" id="addproductratingext_1_@(additionalReview.ReviewTypeId)" />
-                                        <input asp-for="@Model.AddAdditionalProductReviewList[curAdditionalReview].Rating" value="2" type="radio" id="addproductratingext_2_@(additionalReview.ReviewTypeId)" />
-                                        <input asp-for="@Model.AddAdditionalProductReviewList[curAdditionalReview].Rating" value="3" type="radio" id="addproductratingext_3_@(additionalReview.ReviewTypeId)" />
-                                        <input asp-for="@Model.AddAdditionalProductReviewList[curAdditionalReview].Rating" value="4" type="radio" id="addproductratingext_4_@(additionalReview.ReviewTypeId)" />
-                                        <input asp-for="@Model.AddAdditionalProductReviewList[curAdditionalReview].Rating" value="5" type="radio" id="addproductratingext_5_@(additionalReview.ReviewTypeId)" />
-                                    </div>
-                                    <div class="label last">@T("Reviews.Fields.Rating.Excellent")</div>
-                                </div>
-                            </div>
-                        }
-                    }
-
-                    @if (Model.AddProductReview.DisplayCaptcha)
-                    {
-                        <nop-captcha />
-                    }
-                </div>
+        <form asp-controller="AskVendor" asp-action="AskQuestion" method="post" id="ask-vendor-form">
+            <input type="hidden" name="vendorId" value="@Model.VendorModel.Id" />
+            <input type="hidden" name="productId" value="@Model.Id" />
+            <div class="form-group">
+                <label for="Subject">@T("AskVendor.Subject"):</label>
+                <input type="text" class="form-control" id="Subject" name="subject" required />
             </div>
-            <div class="buttons">
-                <button type="submit" name="add-review" class="button-1 write-product-review-button">@T("Reviews.SubmitButton")</button>
+            <div class="form-group">
+                <label for="Message">@T("AskVendor.Message"):</label>
+                <textarea class="form-control" id="Message" name="message" rows="4" required></textarea>
             </div>
+            <button type="submit" class="btn btn-primary">@T("AskVendor.SubmitButton")</button>
         </form>
     </div>
-
 </div>
+<script>
+    $(function () {
+        $('#ask-vendor-form').submit(function (e) {
+            e.preventDefault();
+            var vendorId = $('#VendorId').val();
+            var productId = $('#ProductId').val();
+            var subject = $('#Subject').val();
+            var message = $('#Message').val();
+
+            var data = JSON.stringify({
+                vendorId: vendorId,
+                productId: productId,
+                subject: subject,
+                message: message
+            });
+
+            $.ajax({
+                url: '/Widgets/AskVendor/AskQuestion',
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: data,
+                success: function (result) {
+                    if (result.success) {
+                        location.href = '@Url.Action("ProductDetails", "Product", new { productId = Model.Id })';
+                    } else {
+                        alert(result.message);
+                    }
+                },
+                error: function () {
+                    alert('@T("Common.Error")');
+                }
+            });
+        });
+    });
+</script>

@@ -1,20 +1,74 @@
+﻿@model Nop.Web.Models.Catalog.ProductDetailsModel
+
+@using Nop.Web.Framework.Localization
+@using Nop.Plugin.Widgets.AskVendor.Controllers
+
 @{
-    NopHtml.AppendCssFileParts("~/Plugins/Widgets.AskVendor/Content/css/style.css");
-    NopHtml.AppendCssFileParts("~/Plugins/Widgets.AskVendor/Content/css/modaal.css");
-
-
+    NopHtml.AppendCssFileParts("/Plugins/Widgets.AskVendor/Content/css/style.css");
+    NopHtml.AppendCssFileParts("/Plugins/Widgets.AskVendor/Content/css/modaal.css");
+    NopHtml.AppendScriptParts(ResourceLocation.Footer, "~/Plugins/Widgets.AskVendor/Content/js/modaal.js"); 
     NopHtml.AppendScriptParts(ResourceLocation.Footer, "~/Plugins/Widgets.AskVendor/Content/js/askvendor.js");
-    NopHtml.AppendScriptParts(ResourceLocation.Footer, "~/Plugins/Widgets.AskVendor/Content/js/modaal.js");
-
 }
 
 <div class="ask-vendor">
     <button type="button" class="button-2 ask-vendor-button modaal"
             data-modaal-content-source="#askvendor" data-modaal-type="inline" data-modaal-animation="fade">
-            @T("Plugin.Widgets.AskVendor.Button")
+        @T("Plugin.Widgets.AskVendor.Button")
     </button>
 </div>
-
 <div id="askvendor" style="display:none;">
-    Inline content goes here...
+    <div class="ask-vendor-container">
+        <div class="ask-vendor-header">
+            <h2>@T("AskVendor.Title")</h2>
+        </div>
+        <form asp-controller="AskVendor" asp-action="AskQuestion" method="post" id="ask-vendor-form">
+            <input type="hidden" name="vendorId" value="@Model.VendorModel.Id" />
+            <input type="hidden" name="productId" value="@Model.Id" />
+            <div class="form-group">
+                <label for="Subject">@T("AskVendor.Subject"):</label>
+                <input type="text" class="form-control" id="Subject" name="subject" required />
+            </div>
+            <div class="form-group">
+                <label for="Message">@T("AskVendor.Message"):</label>
+                <textarea class="form-control" id="Message" name="message" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">@T("AskVendor.SubmitButton")</button>
+        </form>
+    </div>
 </div>
+<script>
+    $(function () {
+        $('#ask-vendor-form').submit(function (e) {
+            e.preventDefault();
+            var vendorId = $('#VendorId').val();
+            var productId = $('#ProductId').val();
+            var subject = $('#Subject').val();
+            var message = $('#Message').val();
+
+            var data = JSON.stringify({
+                vendorId: vendorId,
+                productId: productId,
+                subject: subject,
+                message: message
+            });
+
+            $.ajax({
+                url: '/Widgets/AskVendor/AskQuestion',
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: data,
+                success: function (result) {
+                    if (result.success) {
+                        location.href = '@Url.Action("ProductDetails", "Product", new { productId = Model.Id })';
+                    } else {
+                        alert(result.message);
+                    }
+                },
+                error: function () {
+                    alert('@T("Common.Error")');
+                }
+            });
+        });
+    });
+</script>

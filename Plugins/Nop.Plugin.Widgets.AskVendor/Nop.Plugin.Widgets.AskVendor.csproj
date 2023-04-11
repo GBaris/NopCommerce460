@@ -33,9 +33,11 @@
 
   <ItemGroup>
     <Compile Update="Data\Domain\CustomerQuestion.cs">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
+  
+  
 
   <ItemGroup>
     <None Update="Content\css\modaal.css">
