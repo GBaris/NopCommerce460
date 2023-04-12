@@ -6,10 +6,10 @@ using Nop.Plugin.Widgets.AskVendor.Services;
 using Nop.Services.Customers;
 using Nop.Web.Framework;
 using Nop.Web.Framework.Controllers;
+using Nop.Web.Framework.Mvc.Filters;
 
 namespace Nop.Plugin.Widgets.AskVendor.Controllers
 {
-    [Area(AreaNames.Admin)]
     public class AskVendorController : BasePluginController
     {
         private readonly IAskVendorService _askVendorService;
@@ -22,7 +22,7 @@ namespace Nop.Plugin.Widgets.AskVendor.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AskQuestion(int vendorId, int productId, string subject, string message)
+        public async Task<IActionResult> AskQuestion(int vendorId, int productId /*string subject, string message*/)
         {
             var currentCustomer = await _customerService.GetCustomerByEmailAsync(User.Identity.Name);
 
@@ -31,8 +31,8 @@ namespace Nop.Plugin.Widgets.AskVendor.Controllers
                 CustomerId = currentCustomer.Id,
                 VendorId = vendorId,
                 ProductId = productId,
-                Question = subject + " " + message,
-                CreatedOnUtc = DateTime.Now
+                //Question = subject + " " + message,
+                //CreatedOnUtc = DateTime.Now
             };
 
             await _askVendorService.InsertCustomerQuestionAsync(customerQuestion);

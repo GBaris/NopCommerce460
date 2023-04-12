@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
-using Nop.Web.Framework;
 using Nop.Web.Framework.Mvc.Routing;
 
 namespace Nop.Plugin.Widgets.AskVendor.Infrastructure
@@ -10,10 +9,10 @@ namespace Nop.Plugin.Widgets.AskVendor.Infrastructure
         public void RegisterRoutes(IEndpointRouteBuilder endpointRouteBuilder)
         {
             endpointRouteBuilder.MapControllerRoute("WidgetsAskVendorAskQuestion",
-                "Widgets/AskVendor/AskQuestion",
-                new { controller = "AskVendor", action = "AskQuestion", area = AreaNames.Admin });
+                "AskQuestion",
+                new { controller = "AskVendor", action = "AskQuestion" });
         }
 
-        public int Priority => 0;
+        public int Priority => 1;
     }
 }
