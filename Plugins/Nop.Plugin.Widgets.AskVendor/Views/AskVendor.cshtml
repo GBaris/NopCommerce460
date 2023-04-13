@@ -2,22 +2,21 @@
 
 @using Nop.Web.Framework.Localization
 
-@*@{
+{
     NopHtml.AppendCssFileParts("/Plugins/Widgets.AskVendor/Content/css/style.css");
     NopHtml.AppendCssFileParts("/Plugins/Widgets.AskVendor/Content/css/modaal.css");
 
-    NopHtml.AppendScriptParts(ResourceLocation.Footer, "~/Plugins/Widgets.AskVendor/Content/js/askvendor.js");
-    NopHtml.AppendScriptParts(ResourceLocation.Footer, "~/Plugins/Widgets.AskVendor/Content/js/modaal.js"); 
+@*    NopHtml.AppendScriptParts(ResourceLocation.Footer, "~/Plugins/Widgets.AskVendor/Content/js/askvendor.js");
+*@    NopHtml.AppendScriptParts(ResourceLocation.Footer, "~/Plugins/Widgets.AskVendor/Content/js/modaal.js");
 
 }
-*@
 <div class="ask-vendor">
     <button type="button" id="ask-vendor-button" class="button-1 add-to-cart-button ask-vendor-button primary-btn">
         @T("Plugin.Widgets.AskVendor.Button")
     </button>
 </div>
 
-<div id="askvendor" style="display:none;">
+<div id="askvendor" class="modaal" style="display:none;">
     <div class="ask-vendor-container">
         <div class="ask-vendor-header">
             <h2>@T("AskVendor.Title")</h2>
@@ -34,51 +33,42 @@
                 <label for="Message">@T("AskVendor.Message"):</label>
                 <textarea class="form-control" id="Message" name="message" rows="4" required></textarea>
             </div>
-            <button type="submit" class="button-1 send-question-to-customer-button primary-btn">@T("AskVendor.SubmitButton")</button>
+            <button id="buttonaskvendor" onclick="askvendorfunc()" type="button" class="button-1 send-question-to-customer-button primary-btn">@T("AskVendor.SubmitButton")</button>
         </form>
     </div>
 </div>
 
 <script>
-    // Modal açma ve kapatma işlemleri
-    document.getElementById("ask-vendor-button").addEventListener("click", function () {
-        document.getElementById("askvendor").style.display = "block";
-        console.log("Modal açıldı");
-    });
 
-    document.getElementById("askvendor-close").addEventListener("click", function () {
-        document.getElementById("askvendor").style.display = "none";
-        console.log("Modal kapatıldı");
-    });
-    //$(document).ready(function () {
-    //    var form = $("#ask-vendor-form");
+    function askvendorfunc(){
+        var postData = {
+             vendorId:1,
+             productId:18
+        };
 
-    //    form.on("submit", function (event) {
-    //        event.preventDefault();
-    //        console.log("Form submit işlemi gerçekleşti");
-
-    //        $.ajax({
-    //            url: form.attr("action"),
-    //            method: "POST",
-    //            data: form.serialize(),
-    //            beforeSend: function () {
-    //                console.log("AJAX request about to be sent");
-    //            },
-    //            success: function () {
-    //                console.log("Form başarıyla gönderildi");
-    //                document.getElementById("askvendor").style.display = "none";
-    //                console.log("Modal başarıyla kapatıldı");
-    //            },
-    //            error: function (error) {
-    //                console.error("Form gönderilirken hata oluştu:", error);
-    //            },
-    //            complete: function () {
-    //                console.log("AJAX request completed");
-    //            },
-    //        });
-    //    });
-    //});
+        $.ajax({
+            url: '@Url.Action("AskQuestion", "AskVendor")',
+            type: "POST",
+            data: postData,
+            dataType: 'json',
+            beforeSend: function () {
+                console.log("AJAX request about to be sent");
+            },
+            success: function () {
+                console.log("Form başarıyla gönderildi");
+                document.getElementById("askvendor").style.display = "none";
+                console.log("Modal başarıyla kapatıldı");
+            },
+            error: function (error) {
+                console.error("Form gönderilirken hata oluştu:", error);
+            },
+            complete: function () {
+                console.log("AJAX request completed");
+            },
+        });
+    }
 
 </script>
+
 
 
