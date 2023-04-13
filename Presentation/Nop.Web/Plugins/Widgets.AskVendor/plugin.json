@@ -1,16 +1,11 @@
 ﻿{
   "Group": "Widgets",
   "FriendlyName": "Ask Vendor",
-  "SupportedVersions": [
-    "4.60"
-  ],
+  "SystemName": "Widgets.AskVendor",
+  "Version": "1.0",
+  "SupportedVersions": [ "4.60" ],
   "Author": "gunes team",
   "DisplayOrder": 1,
   "FileName": "Nop.Plugin.Widgets.AskVendor.dll",
-  "Description": "This plugin allows customers to ask any question to vendor",
-  "LimitedToStores": [],
-  "LimitedToCustomerRoles": [],
-  "DependsOnSystemNames": [],
-  "SystemName": "Widgets.AskVendor",
-  "Version": "1.0"
+  "Description": "This plugin allows customers to ask any question to vendor"
 }

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Nop.Plugin.Widgets.AskVendor.Components;
 using Nop.Services.Cms;
@@ -22,7 +20,7 @@ namespace Nop.Plugin.Widgets.AskVendor
 
         public async Task<IList<string>> GetWidgetZonesAsync() //nerelerde
         {
-            var widgetZones = new List<string> { PublicWidgetZones.ProductDetailsInsideOverviewButtonsAfter };
+            var widgetZones = new List<string> { PublicWidgetZones.ProductDetailsInsideOverviewButtonsAskVendor };
              return await Task.FromResult(widgetZones);
         }
     }
