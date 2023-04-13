@@ -1,12 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Nop.Plugin.Widgets.AskVendor.Data.Domain;
 using Nop.Plugin.Widgets.AskVendor.Services;
 using Nop.Services.Customers;
-using Nop.Web.Framework;
 using Nop.Web.Framework.Controllers;
-using Nop.Web.Framework.Mvc.Filters;
 
 namespace Nop.Plugin.Widgets.AskVendor.Controllers
 {
@@ -22,7 +19,7 @@ namespace Nop.Plugin.Widgets.AskVendor.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AskQuestion(int vendorId, int productId /*string subject, string message*/)
+        public async Task<IActionResult> AskQuestion(int vendorId, int productId, string subject, string message)
         {
             var currentCustomer = await _customerService.GetCustomerByEmailAsync(User.Identity.Name);
 
@@ -32,7 +29,7 @@ namespace Nop.Plugin.Widgets.AskVendor.Controllers
                 VendorId = vendorId,
                 ProductId = productId,
                 //Question = subject + " " + message,
-                //CreatedOnUtc = DateTime.Now
+                Question = subject + " " + "\r\n\r\n" + message,
             };
 
             await _askVendorService.InsertCustomerQuestionAsync(customerQuestion);

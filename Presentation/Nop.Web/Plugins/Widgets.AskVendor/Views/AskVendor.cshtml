@@ -2,12 +2,11 @@
 
 @using Nop.Web.Framework.Localization
 
-{
+@{
     NopHtml.AppendCssFileParts("/Plugins/Widgets.AskVendor/Content/css/style.css");
     NopHtml.AppendCssFileParts("/Plugins/Widgets.AskVendor/Content/css/modaal.css");
 
-@*    NopHtml.AppendScriptParts(ResourceLocation.Footer, "~/Plugins/Widgets.AskVendor/Content/js/askvendor.js");
-*@    NopHtml.AppendScriptParts(ResourceLocation.Footer, "~/Plugins/Widgets.AskVendor/Content/js/modaal.js");
+    NopHtml.AppendScriptParts(ResourceLocation.Footer, "~/Plugins/Widgets.AskVendor/Content/js/modaal.js");
 
 }
 <div class="ask-vendor">
@@ -21,7 +20,6 @@
     <div class="ask-vendor-container">
         <div class="ask-vendor-header">
             <h2>@T("AskVendor.Title")</h2>
-            <button id="askvendor-close">&times;</button>
         </div>
         <form asp-controller="AskVendor" asp-action="AskQuestion" method="post" id="ask-vendor-form">
             <input type="hidden" asp-for="@Model.VendorModel.Id" name="vendorId" />
@@ -40,11 +38,17 @@
 </div>
 
 <script>
-
     function askvendorfunc(){
+        var venId = $('input[name="vendorId"]').val();
+        var proId = $('input[name="productId"]').val();
+        var sub = $('#Subject').val();
+        var mes = $('#Message').val();
+
         var postData = {
-             vendorId:1,
-             productId:18
+             vendorId: venId,
+             productId: proId,
+             subject: sub,
+             message: mes
         };
 
         $.ajax({
@@ -68,7 +72,6 @@
             },
         });
     }
-
 </script>
 
 
