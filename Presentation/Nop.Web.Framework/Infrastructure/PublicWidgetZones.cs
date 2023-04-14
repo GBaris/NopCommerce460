@@ -85,6 +85,7 @@
         public static string HeaderAfter => "header_after";
         public static string HeaderBefore => "header_before";
         public static string HeaderLinksAfter => "header_links_after";
+        public static string HeaderLinkVendorHasMessage => "header_link_vendor_has_message";
         public static string HeaderLinksBefore => "header_links_before";
         public static string HeaderMenuAfter => "header_menu_after";
         public static string HeaderMenuBefore => "header_menu_before";

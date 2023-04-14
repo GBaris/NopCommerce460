@@ -88,12 +88,12 @@
       "Version": "1.80"
     },
     {
-      "SystemName": "Widgets.AskVendor",
-      "Version": "1.0"
-    },
-    {
       "SystemName": "Misc.Postcodes4U",
       "Version": "1.00"
+    },
+    {
+      "SystemName": "Widgets.AskVendor",
+      "Version": "1.0"
     }
   ],
   "PluginNamesToUninstall": [],

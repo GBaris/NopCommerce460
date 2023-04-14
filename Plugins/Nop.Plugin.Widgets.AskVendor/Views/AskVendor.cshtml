@@ -11,7 +11,8 @@
 }
 <div class="ask-vendor">
     <button type="button" id="ask-vendor-button" class="button-1 add-to-cart-button ask-vendor-button primary-btn modaal"
-    data-modaal-content-source="#askvendor" data-modaal-type="inline" data-modaal-animation="fade">>
+            data-modaal-content-source="#askvendor" data-modaal-type="inline" data-modaal-animation="fade">
+        >
         @T("Plugin.Widgets.AskVendor.Button")
     </button>
 </div>
@@ -32,23 +33,28 @@
                 <label for="Message">@T("AskVendor.Message"):</label>
                 <textarea class="form-control" id="Message" name="message" rows="4" required></textarea>
             </div>
-            <button id="buttonaskvendor" onclick="askvendorfunc()" type="button" class="button-1 send-question-to-customer-button primary-btn">@T("AskVendor.SubmitButton")</button>
+            <button id="buttonaskvendor" onclick="askvendorfunc()" type="button" class="button-1 send-question-to-customer-button primary-btn confirm">@T("AskVendor.SubmitButton")</button>
         </form>
     </div>
 </div>
 
 <script>
-    function askvendorfunc(){
+    function askvendorfunc() {
         var venId = $('input[name="vendorId"]').val();
         var proId = $('input[name="productId"]').val();
         var sub = $('#Subject').val();
         var mes = $('#Message').val();
 
+        if (sub.length < 5 || mes.length < 10) {
+            alert("Lütfen konuyu en az 5 karakter ve mesajı en az 10 karakter olarak girin.");
+            return;
+        }
+
         var postData = {
-             vendorId: venId,
-             productId: proId,
-             subject: sub,
-             message: mes
+            vendorId: venId,
+            productId: proId,
+            subject: sub,
+            message: mes
         };
 
         $.ajax({
@@ -61,9 +67,8 @@
             },
             success: function () {
                 console.log("Form başarıyla gönderildi");
-                document.getElementById("askvendor").style.display = "none";
-                console.log("Modal başarıyla kapatıldı");
             },
+
             error: function (error) {
                 console.error("Form gönderilirken hata oluştu:", error);
             },
@@ -72,6 +77,8 @@
             },
         });
     }
+
+
 </script>
 
 

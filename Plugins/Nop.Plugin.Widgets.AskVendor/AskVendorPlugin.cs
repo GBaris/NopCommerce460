@@ -15,13 +15,27 @@ namespace Nop.Plugin.Widgets.AskVendor
 
         public Type GetWidgetViewComponent(string widgetZone) //ne gösterilecek
         {
-           return typeof(AskVendorViewComponent);
+            if (widgetZone == PublicWidgetZones.ProductDetailsInsideOverviewButtonsAskVendor)
+            {
+                return typeof(AskVendorViewComponent);
+            }
+            else if (widgetZone == PublicWidgetZones.HeaderLinkVendorHasMessage)
+            {
+                return typeof(VendorHasMessageComponent);
+            }
+
+            return null;
         }
 
         public async Task<IList<string>> GetWidgetZonesAsync() //nerelerde
         {
-            var widgetZones = new List<string> { PublicWidgetZones.ProductDetailsInsideOverviewButtonsAskVendor };
-             return await Task.FromResult(widgetZones);
+            var widgetZones = new List<string>
+        {
+            PublicWidgetZones.ProductDetailsInsideOverviewButtonsAskVendor,
+            PublicWidgetZones.HeaderLinkVendorHasMessage
+        };
+
+            return await Task.FromResult(widgetZones);
         }
     }
 }
