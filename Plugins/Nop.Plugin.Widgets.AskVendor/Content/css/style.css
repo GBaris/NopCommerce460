@@ -18,3 +18,8 @@
   background-color: #007bff;
   border-color: #007bff;
 }
+.email-a-friend-button {
+  background-image: url('../content/icons/email-button.png');
+  background-repeat: no-repeat;
+  background-position: center;
+}
