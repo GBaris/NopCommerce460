@@ -30,6 +30,8 @@
         {
             @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.HeaderLinkVendorHasMessage, additionalData = Model })
         }
+
+
         @if (Model.AllowPrivateMessages)
         {
             <li>
