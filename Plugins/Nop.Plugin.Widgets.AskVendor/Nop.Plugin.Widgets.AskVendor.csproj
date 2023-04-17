@@ -76,7 +76,7 @@
     <None Update="Views\CustomerViews\CustomerHasMessageButton.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Views\VendorViews\VendorHasMessageButton.cshtml">
+    <None Update="Views\VendorViews\Questions.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -85,7 +85,6 @@
 
   <ItemGroup>
     <Folder Include="Components\VendorComponents\" />
-    <Folder Include="Controller\VendorControllers\" />
     <Folder Include="Services\CustomerServices\" />
   </ItemGroup>
 

@@ -11,6 +11,10 @@ namespace Nop.Plugin.Widgets.AskVendor.Infrastructure
             endpointRouteBuilder.MapControllerRoute("WidgetsAskVendorAskQuestion",
                 "AskQuestion",
                 new { controller = "AskVendor", action = "AskQuestion" });
+
+            endpointRouteBuilder.MapControllerRoute("WidgetsAskVendorQuestions",
+                "Admin/Vendor/Questions",
+                new { controller = "Vendor", action = "Questions", area = "Admin" });
         }
 
         public int Priority => 1;

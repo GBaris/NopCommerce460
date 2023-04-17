@@ -1,0 +1,42 @@
+@model IList<Nop.Plugin.Widgets.AskVendor.Data.Domain.CustomerQuestion>
+
+@{
+    ViewBag.Title = "Questions";
+}
+
+<h1>Questions</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Question ID</th>
+            <th>ProductId</th>
+            <th>Subject</th>
+            <th>Question</th>
+            <th>Question Date</th>
+            <th>Answer</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var question in Model)
+        {
+            <tr>
+                <td>@question.Id</td>
+                <td>@question.ProductId</td>
+                <td>@question.Subject</td>
+                <td>@question.Question</td>
+                <td>@question.QuestionDate.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                <td>
+                    @if (!question.IsAnswered)
+                    {
+                        <form asp-action="AnswerQuestion" asp-controller="Vendor" method="post">
+                            <input type="hidden" name="questionId" value="@question.Id" />
+                            <input type="text" name="answer" placeholder="Answer" />
+                            <button type="submit" class="btn btn-primary">Answer</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
