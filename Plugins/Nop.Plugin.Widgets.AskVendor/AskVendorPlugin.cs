@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Nop.Plugin.Widgets.AskVendor.Components;
+using Nop.Plugin.Widgets.AskVendor.Components.CustomerComponents;
+using Nop.Plugin.Widgets.AskVendor.Components.VendorComponents;
 using Nop.Services.Cms;
 using Nop.Services.Plugins;
 using Nop.Web.Framework.Infrastructure;

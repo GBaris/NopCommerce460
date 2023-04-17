@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Content\Icons\email-button.png" />
     <None Remove="plugin.json" />
     <None Remove="Views\_ViewImports.cshtml" />
   </ItemGroup>
@@ -17,6 +18,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Content\Icons\email-button.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
     <Content Include="plugin.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -65,12 +70,19 @@
     <None Update="Content\js\modaal.min.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Views\AskVendor.cshtml">
+    <None Update="Views\CustomerViews\AskVendor.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Views\VendorHasMessageButton.cshtml">
+    <None Update="Views\VendorViews\VendorHasMessageButton.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  
+  
+
+  <ItemGroup>
+    <Folder Include="Controller\VendorControllers\" />
+    <Folder Include="Services\CustomerServices\" />
   </ItemGroup>
 
   <!-- This target execute after "Build" target -->

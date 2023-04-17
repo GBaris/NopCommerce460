@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Nop.Core.Infrastructure;
-using Nop.Plugin.Widgets.AskVendor.Services;
+using Nop.Plugin.Widgets.AskVendor.Services.VendorServices;
 
 namespace Nop.Plugin.Widgets.AskVendor.Infrastructure
 {
