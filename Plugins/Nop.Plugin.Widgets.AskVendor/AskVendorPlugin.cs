@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Nop.Plugin.Widgets.AskVendor.Components.CustomerComponents;
-using Nop.Plugin.Widgets.AskVendor.Components.VendorComponents;
 using Nop.Services.Cms;
 using Nop.Services.Plugins;
 using Nop.Web.Framework.Infrastructure;
@@ -22,7 +21,7 @@ namespace Nop.Plugin.Widgets.AskVendor
             }
             else if (widgetZone == PublicWidgetZones.HeaderLinkVendorHasMessage)
             {
-                return typeof(VendorHasMessageComponent);
+                return typeof(CustomerHasMessageComponent);
             }
 
             return null;

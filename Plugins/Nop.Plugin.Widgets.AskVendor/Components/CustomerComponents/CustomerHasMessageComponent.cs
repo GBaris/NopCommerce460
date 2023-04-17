@@ -5,13 +5,13 @@ using Nop.Web.Framework.Components;
 using Nop.Web.Models.Catalog;
 using Nop.Web.Models.Common;
 
-namespace Nop.Plugin.Widgets.AskVendor.Components.VendorComponents
+namespace Nop.Plugin.Widgets.AskVendor.Components.CustomerComponents
 {
-    public class VendorHasMessageComponent : NopViewComponent
+    public class CustomerHasMessageComponent : NopViewComponent
     {
         private readonly IWorkContext _workContext;
 
-        public VendorHasMessageComponent(IWorkContext workContext)
+        public CustomerHasMessageComponent(IWorkContext workContext)
         {
             _workContext = workContext;
         }
@@ -20,14 +20,14 @@ namespace Nop.Plugin.Widgets.AskVendor.Components.VendorComponents
             if (additionalData is not HeaderLinksModel)
                 return Content("");
 
-            var vendor = await _workContext.GetCurrentVendorAsync();
+            var customer = await _workContext.GetCurrentCustomerAsync();
 
             var model = (HeaderLinksModel)additionalData;
 
-            if (vendor == null)
+            if (customer == null)
                 return Content("");
 
-            return View("~/Plugins/Widgets.AskVendor/Views/VendorViews/VendorHasMessageButton.cshtml", model);
+            return View("~/Plugins/Widgets.AskVendor/Views/CustomerViews/CustomerHasMessageButton.cshtml", model);
         }
     }
 }

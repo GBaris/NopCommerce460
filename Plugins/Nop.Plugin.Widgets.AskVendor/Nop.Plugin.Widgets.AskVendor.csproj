@@ -73,6 +73,9 @@
     <None Update="Views\CustomerViews\AskVendor.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Views\CustomerViews\CustomerHasMessageButton.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Views\VendorViews\VendorHasMessageButton.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -81,6 +84,7 @@
   
 
   <ItemGroup>
+    <Folder Include="Components\VendorComponents\" />
     <Folder Include="Controller\VendorControllers\" />
     <Folder Include="Services\CustomerServices\" />
   </ItemGroup>
