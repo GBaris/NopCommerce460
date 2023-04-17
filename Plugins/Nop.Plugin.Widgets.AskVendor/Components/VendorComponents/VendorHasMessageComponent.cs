@@ -5,7 +5,7 @@ using Nop.Web.Framework.Components;
 using Nop.Web.Models.Catalog;
 using Nop.Web.Models.Common;
 
-namespace Nop.Plugin.Widgets.AskVendor.Components
+namespace Nop.Plugin.Widgets.AskVendor.Components.VendorComponents
 {
     public class VendorHasMessageComponent : NopViewComponent
     {
@@ -18,20 +18,16 @@ namespace Nop.Plugin.Widgets.AskVendor.Components
         public async Task<IViewComponentResult> InvokeAsync(string widgetZone, object additionalData)
         {
             if (additionalData is not HeaderLinksModel)
-            {
                 return Content("");
-            }
 
             var vendor = await _workContext.GetCurrentVendorAsync();
 
             var model = (HeaderLinksModel)additionalData;
 
             if (vendor == null)
-            {
                 return Content("");
-            }
 
-            return View("~/Plugins/Widgets.AskVendor/Views/VendorHasMessageButton.cshtml", model);
+            return View("~/Plugins/Widgets.AskVendor/Views/VendorViews/VendorHasMessageButton.cshtml", model);
         }
     }
 }

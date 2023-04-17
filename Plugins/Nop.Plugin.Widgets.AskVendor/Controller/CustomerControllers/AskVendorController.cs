@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Nop.Plugin.Widgets.AskVendor.Data.Domain;
-using Nop.Plugin.Widgets.AskVendor.Services;
+using Nop.Plugin.Widgets.AskVendor.Services.VendorServices;
 using Nop.Services.Customers;
 using Nop.Web.Framework.Controllers;
 
-namespace Nop.Plugin.Widgets.AskVendor.Controllers
+namespace Nop.Plugin.Widgets.AskVendor.Controller.CustomerControllers
 {
     public class AskVendorController : BasePluginController
     {
@@ -28,13 +28,13 @@ namespace Nop.Plugin.Widgets.AskVendor.Controllers
                 CustomerId = currentCustomer.Id,
                 VendorId = vendorId,
                 ProductId = productId,
-                //Question = subject + " " + message,
-                Question = subject + " " + "\r\n\r\n" + message,
+                Subject = subject,
+                Question = message,
             };
 
             await _askVendorService.InsertCustomerQuestionAsync(customerQuestion);
 
-            return RedirectToAction("ProductDetails", "Product", new { productId = productId });
+            return RedirectToAction("ProductDetails", "Product", new { productId });
         }
     }
 }
