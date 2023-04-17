@@ -15,7 +15,15 @@ public class CustomerQuestionBuilder : NopEntityBuilder<CustomerQuestion>
         table.WithColumn(nameof(CustomerQuestion.VendorId)).AsInt32().ForeignKey<Vendor>()
             .WithColumn(nameof(CustomerQuestion.CustomerId)).AsInt32().ForeignKey<Customer>()
             .WithColumn(nameof(CustomerQuestion.ProductId)).AsInt32().ForeignKey<Product>()
+            .WithColumn(nameof(CustomerQuestion.Subject)).AsString().NotNullable()
             .WithColumn(nameof(CustomerQuestion.Question)).AsString().NotNullable()
-            .WithColumn(nameof(CustomerQuestion.CreatedOnUtc)).AsDateTime2().NotNullable();
+            .WithColumn(nameof(CustomerQuestion.QuestionDate)).AsDateTime2().NotNullable()
+            .WithColumn(nameof(CustomerQuestion.Answer)).AsString().Nullable()
+            .WithColumn(nameof(CustomerQuestion.AnswerDate)).AsDateTime2().Nullable()
+            .WithColumn(nameof(CustomerQuestion.IsReadByVendor)).AsBoolean().NotNullable()
+            .WithColumn(nameof(CustomerQuestion.IsReadByCustomer)).AsBoolean().NotNullable()
+            .WithColumn(nameof(CustomerQuestion.IsAnswered)).AsBoolean().NotNullable()
+            .WithColumn(nameof(CustomerQuestion.IsDeletedByCustomer)).AsBoolean().NotNullable()
+            .WithColumn(nameof(CustomerQuestion.IsDeletedByVendor)).AsBoolean().NotNullable();
     }
 }
